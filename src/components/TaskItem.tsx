@@ -56,7 +56,7 @@ const TaskItem: React.FC<AllTasks> = ({ id, description, isDone, tasks, setTasks
   };
   
   return (
-    <div className="w-full bg-yellow-300 p-6 rounded-lg shadow-md">
+    <div className="w-full bg-yellow-300 transform transition-all hover:scale-103 hover:outline-2 hover:outline-black duration-500 p-6 rounded-lg shadow-md">
       <div className="flex justify-between items-center">
         <div>
           {edit && <input type="text" value={edited} className="px-2 py-1" onChange={(e) => setEdited(e.target.value)} onKeyPress={handleKeyPress}/>}

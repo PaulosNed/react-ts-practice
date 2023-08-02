@@ -41,7 +41,7 @@ function App() {
             <div className="flex flex-col gap-4 p-4">
               <p className="w-full text-2xl text-white">Active Tasks</p>
             </div>
-            <div className="p-2 flex flex-col gap-2">
+            <div className="py-2 px-8 flex flex-col gap-2">
               {tasks.map((todo: Task) => (
                 !todo.isDone && <TaskItem key={todo.id} id={todo.id} description={todo.description} isDone={todo.isDone} tasks={tasks} setTasks={setTasks } />
               ))}
@@ -51,7 +51,7 @@ function App() {
             <div className="flex flex-col gap-4 p-4">
               <p className="w-full text-2xl text-white">Completed Tasks</p>
             </div>
-            <div className="p-2 flex flex-col gap-2">
+            <div className="py-2 px-8 flex flex-col gap-2">
               {tasks.map((todo: Task) => (
                 todo.isDone && <TaskItem key={todo.id} description={todo.description} isDone={todo.isDone} id={todo.id} tasks={tasks} setTasks={setTasks } />
               ))}
