@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Task } from "../models/Task";
-import { AiFillEdit, AiFillDelete, AiFillCheckCircle } from "react-icons/ai";
+import { AiFillEdit, AiFillDelete, AiFillCheckCircle, AiFillBackward } from "react-icons/ai";
 
 interface AllTasks extends Task {
   tasks: Task[],
@@ -21,34 +21,39 @@ const TaskItem: React.FC<AllTasks> = ({ id, description, isDone, tasks, setTasks
   };
 
   const handleEnterPressed = () => {
-    let allTasks = tasks
-    for (let index = 0; index < allTasks.length; index++) {
-      if (id === allTasks[index].id){
-        allTasks[index].description = edited
-        break
-      };
-    }
-    setTasks(allTasks)
+    const updatedTasks = tasks.map((task) => {
+      if (id === task.id) {
+        return {
+          ...task,
+          description: edited,
+        };
+      }
+      return task;
+    });
+  
+    setTasks(updatedTasks);
     setEdit(false)
   }
 
 
-  const deleteTask = (id: number) => {
+  const deleteTask = () => {
     const updated: Task[] = tasks.filter((task: Task) => task.id !== id)
     setTasks(updated)
   }
 
-  const completeTask = (id: number) => {
-    let allTasks = tasks
-    // console.log(id)
-    for (let index = 0; index < allTasks.length; index++) {
-      if (id === allTasks[index].id){
-        allTasks[index].isDone = !isDone
-        break
-      };
-    }
-    setTasks(allTasks)
-  }
+  const completeTask = () => {
+    const updatedTasks = tasks.map((task) => {
+      if (id === task.id) {
+        return {
+          ...task,
+          isDone: !task.isDone,
+        };
+      }
+      return task;
+    });
+  
+    setTasks(updatedTasks);
+  };
   
   return (
     <div className="w-full bg-yellow-300 p-6 rounded-lg shadow-md">
@@ -61,12 +66,15 @@ const TaskItem: React.FC<AllTasks> = ({ id, description, isDone, tasks, setTasks
           <span onClick={() => setEdit((prev) => !prev)}>
             <AiFillEdit />
           </span>
-          <span onClick={() => deleteTask(id)}>
+          <span onClick={deleteTask}>
             <AiFillDelete />
           </span>
-          <span className="" onClick={() => completeTask(id)}>
+          {!isDone && <span onClick={completeTask}>
             <AiFillCheckCircle />
-          </span>
+          </span>}
+          {isDone && <span onClick={completeTask}>
+            <AiFillBackward />
+          </span>}
         </div>
       </div>
     </div>
